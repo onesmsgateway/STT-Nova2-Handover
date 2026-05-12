@@ -1,0 +1,11 @@
+# Đảm bảo line endings LF cho các file script/config
+# Tránh lỗi \r\n khi chạy trên Linux/Ubuntu
+*.sh       text eol=lf
+*.py       text eol=lf
+*.sql      text eol=lf
+*.yml      text eol=lf
+*.yaml     text eol=lf
+*.md       text eol=lf
+*.txt      text eol=lf
+Dockerfile text eol=lf
+.env*      text eol=lf

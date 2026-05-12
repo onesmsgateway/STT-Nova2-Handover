@@ -1,0 +1,78 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+env/
+ENV/
+env.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Audio files (except sample)
+resource/*.wav
+resource/*.mp3
+resource/*.m4a
+resource/*.flac
+!resource/sample_audio.WAV
+# Downloaded audio file (sequential processing)
+resource/downloaded_audio.wav
+
+# Queue data (keep structure but ignore content)
+queue_data/processing_status.json
+queue_data/url_queue.txt
+
+# Docker
+
+# Environment variables
+
+# Heavy files
+resource/models/
+src/libs/VieNeu-TTS/
+static/cache/
+queue_data/
+tests/*.wav
+static/*.wav
+.env
