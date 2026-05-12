@@ -1,0 +1,186 @@
+{
+    "info": {
+        "name": "STT-Nova2 API Collection",
+        "description": "API collection for STT-Nova2 - Speech-to-Text, TTS, AI Hub Vectorization",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "https://stt.minhbv.com",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Health Check",
+            "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/health",
+                "description": "Kiểm tra trạng thái service"
+            }
+        },
+        {
+            "name": "STT - Webhook (CDR)",
+            "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/webhook",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"recording_url\": \"https://conek-pbx.conek.vn/app/xml_cdr/download.php?id=9acc2e32-5b32-4617-abde-180719eaf9c9\",\n  \"xml_cdr_uuid\": \"9acc2e32-5b32-4617-abde-180719eaf9c9\",\n  \"direction\": \"outbound\",\n  \"billsec\": 37,\n  \"duration\": 45,\n  \"callback_url\": null\n}"
+                },
+                "description": "Gửi audio URL từ CDR system để xử lý STT. Response trả về task_id, dùng GET /v1/tasks/{task_id} để poll kết quả."
+            }
+        },
+        {
+            "name": "STT - Batch Process",
+            "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/process",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"urls\": [\"https://example.com/audio1.wav\", \"https://example.com/audio2.wav\"],\n  \"audio_processing_mode\": \"enhance_all\",\n  \"max_words\": 150,\n  \"use_queue\": true,\n  \"engine\": \"deepgram\"\n}"
+                },
+                "description": "Xử lý batch nhiều audio URLs. Các mode: auto, off, enhance_all, enhance_speech, normal, aggressive, conservative"
+            }
+        },
+        {
+            "name": "Get Task Status",
+            "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/v1/tasks/{{task_id}}",
+                "description": "Poll kết quả xử lý bằng task_id. Response: transcript, summary, call_topic, status"
+            }
+        },
+        {
+            "name": "Queue Status",
+            "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/queue/status",
+                "description": "Kiểm tra trạng thái hàng đợi xử lý"
+            }
+        },
+        {
+            "name": "TTS - Edge (Microsoft)",
+            "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/v1/tts/speak",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"text\": \"Xin chào, đây là bản tin thời tiết hôm nay.\",\n  \"language\": \"vi\",\n  \"voice\": \"vi-VN-HoaiMyNeural\",\n  \"rate\": \"+0%\",\n  \"provider\": \"edge\",\n  \"return_json\": false\n}"
+                },
+                "description": "Text-to-Speech với Edge TTS. Voices: vi-VN-HoaiMyNeural (Nữ), vi-VN-NamMinhNeural (Nam)"
+            }
+        },
+        {
+            "name": "TTS - VieNeu Clone",
+            "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/v1/tts/clone",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"text\": \"Xin chào, đây là giọng nói được nhân bản.\",\n  \"voice\": \"Nguyên\",\n  \"rate\": \"+0%\",\n  \"return_json\": true\n}"
+                },
+                "description": "Voice Cloning với VieNeu-TTS. Presets: Nguyên, Tuyên, Sơn, Đoan, Dung, Ly, Ngọc, Hương, Bình, Vĩnh"
+            }
+        },
+        {
+            "name": "AI Hub - Vectorize",
+            "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/v1/ai-hub/vectorize",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "file",
+                            "type": "file",
+                            "description": "File cần vectorize (PDF, Docx, Image, Audio)"
+                        },
+                        {
+                            "key": "webhook_url",
+                            "value": "https://your-server.com/webhook",
+                            "type": "text",
+                            "description": "URL nhận kết quả"
+                        },
+                        {
+                            "key": "metadata",
+                            "value": "{\"source\": \"demo\"}",
+                            "type": "text"
+                        },
+                        {
+                            "key": "enable_summary",
+                            "value": "false",
+                            "type": "text"
+                        },
+                        {
+                            "key": "enable_classification",
+                            "value": "false",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "description": "Upload file để vectorize (OCR/STT + Embedding). Hỗ trợ: PDF, Docx, Image, Audio/Video"
+            }
+        },
+        {
+            "name": "AI Hub - Task Progress",
+            "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/v1/ai-hub/tasks/{{task_id}}",
+                "description": "Kiểm tra tiến độ xử lý AI Hub task (0-100%)"
+            }
+        },
+        {
+            "name": "Document Parse",
+            "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/v1/docs/parse",
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "file",
+                            "type": "file",
+                            "description": "File PDF hoặc Docx"
+                        }
+                    ]
+                },
+                "description": "Trích xuất văn bản từ tài liệu PDF/Docx"
+            }
+        },
+        {
+            "name": "Get TTS Voices",
+            "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/v1/tts/voices",
+                "description": "Lấy danh sách các giọng TTS hỗ trợ"
+            }
+        }
+    ]
+}

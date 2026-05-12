@@ -1,0 +1,108 @@
+# STT-Nova2 Project Rules for Cursor AI
+
+## Project Context
+This is a Speech-to-Text service with FastAPI backend, Telegram bot integration, and AI summarization capabilities.
+
+## Code Quality Standards
+
+### Formatting & Style
+- Use Black for code formatting (line length 88)
+- Use isort for import sorting with Black profile
+- Use flake8 for linting (max line length 88)
+- Always use type hints for function parameters and return values
+- Use snake_case for variables and functions, UPPER_CASE for constants
+
+### Code Structure
+- Keep functions small and focused (max 20 lines)
+- Use descriptive names for functions, classes, and variables
+- Write Google-style docstrings for all functions and classes
+- Use async/await for I/O operations
+
+### Testing Requirements
+- Write unit tests using pytest for all new code
+- Use descriptive test function names starting with `test_`
+- Mock external dependencies (Deepgram, Gemini, Telegram)
+- Maintain minimum 80% test coverage
+- Test error handling scenarios and edge cases
+
+### Security Standards
+- Never commit API keys or secrets
+- Validate all user inputs using Pydantic models
+- Use parameterized queries to prevent SQL injection
+- Keep dependencies updated and scan for vulnerabilities
+
+### API Design
+- Use proper HTTP methods and status codes
+- Return consistent JSON response format
+- Implement proper error handling and validation
+- Use async endpoints for I/O operations
+
+### Error Handling
+- Use specific exception types
+- Provide meaningful error messages
+- Log errors with full context
+- Return appropriate HTTP status codes
+
+### Documentation
+- Update README.md for any setup changes
+- Document all API endpoints
+- Include examples in docstrings
+- Keep requirements.txt updated
+
+## Development Workflow
+Before committing code:
+1. Format with Black and isort
+2. Lint with flake8
+3. Run tests with pytest
+4. Check for security issues
+
+## Commit Standards
+Use conventional commits:
+- feat: new feature
+- fix: bug fix
+- docs: documentation
+- test: tests
+- refactor: code refactoring
+- chore: maintenance
+
+Examples:
+- feat(api): add webhook endpoint for CDR integration
+- fix(telegram): resolve bot command parsing issue
+- test(api): add unit tests for webhook validation
+
+## File Organization
+- API endpoints in api_server.py
+- Business logic in separate modules
+- Tests in test_*.py files
+- Configuration in config.py
+- Docker files in root directory
+
+## Performance Guidelines
+- Use async/await for I/O operations
+- Implement proper database connection pooling
+- Use caching where appropriate
+- Monitor memory usage and optimize queries
+
+## Security Checklist
+- [ ] No hardcoded secrets
+- [ ] Input validation implemented
+- [ ] SQL injection prevention
+- [ ] Dependencies updated
+- [ ] Security scanning enabled
+
+## Testing Checklist
+- [ ] Unit tests written
+- [ ] Error cases tested
+- [ ] Edge cases covered
+- [ ] Mocks used for external services
+- [ ] Test coverage > 80%
+
+## Code Review Checklist
+- [ ] Code formatted with Black
+- [ ] Imports sorted with isort
+- [ ] Linting passes with flake8
+- [ ] Tests pass
+- [ ] Security scan clean
+- [ ] Documentation updated
+- [ ] Type hints added
+- [ ] Error handling implemented
