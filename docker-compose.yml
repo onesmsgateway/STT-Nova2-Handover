@@ -9,7 +9,7 @@ services:
       - hf_cache:/root/.cache/huggingface # Cache models to host
       - tts_cache:/root/.local/share/tts # Cache TTS models
     ports:
-      - "8000:8000"
+      - "8123:8123"
     env_file:
       - .env
     environment:
@@ -32,7 +32,7 @@ services:
           cpus: '1.0'
           memory: 2G
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8000/" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:8123/" ]
       interval: 30s
       timeout: 10s
       retries: 3

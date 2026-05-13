@@ -64,7 +64,7 @@ psql -U [USERNAME] -h [HOSTNAME] -d [DB_NAME] -f scripts/schema.sql
 ```
 4. Khởi chạy server FastAPI:
 ```bash
-uvicorn api_server:app --host 0.0.0.0 --port 8000
+uvicorn api_server:app --host 0.0.0.0 --port 8123
 ```
 
 ## 4. Lưu ý quan trọng: Định dạng dòng (Line Endings)

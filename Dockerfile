@@ -48,7 +48,7 @@ RUN chmod +x setup_models.sh && ./setup_models.sh
 RUN mkdir -p resource queue_data static/cache
 
 # Expose port
-EXPOSE 8000
+EXPOSE 8123
 
 # Default command
-CMD ["uvicorn", "api_server:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "api_server:app", "--host", "0.0.0.0", "--port", "8123"]

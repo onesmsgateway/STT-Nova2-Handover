@@ -47,12 +47,12 @@ docker-compose up -d
 docker-compose logs -f stt-nova2
 
 # Kiểm tra health
-curl http://localhost:8000/
+curl http://localhost:8123/
 ```
 
 ### 4. Test API
 ```bash
-curl -X POST "http://localhost:8000/process" \
+curl -X POST "http://localhost:8123/process" \
   -H "Content-Type: application/json" \
   -d '{
     "urls": ["https://example.com/audio.wav"],
@@ -112,10 +112,10 @@ curl -X POST "http://localhost:8000/process" \
 ### Monitoring
 ```bash
 # Kiểm tra trạng thái queue
-curl http://localhost:8000/queue/status
+curl http://localhost:8123/queue/status
 
 # Bắt đầu xử lý queue
-curl -X POST http://localhost:8000/queue/start
+curl -X POST http://localhost:8123/queue/start
 ```
 
 ### Response cho Duplicate Requests
@@ -217,7 +217,7 @@ HTTP 429 Too Many Requests
 
 ```bash
 # Test với curl
-curl -X POST http://localhost:8000/webhook \
+curl -X POST http://localhost:8123/webhook \
   -H "Content-Type: application/json" \
   -d '{
     "recording_url": "https://example.com/audio.wav",
@@ -274,7 +274,7 @@ curl -X POST http://localhost:8000/webhook \
 docker build -t stt-nova2:latest .
 
 # Run container
-docker run -d --name stt-nova2-service -p 8000:8000 stt-nova2:latest
+docker run -d --name stt-nova2-service -p 8123:8123 stt-nova2:latest
 
 # View logs
 docker logs -f stt-nova2-service
@@ -343,11 +343,11 @@ QUEUE_TIMEOUT = 300
    open -a Docker
    ```
 
-2. **Port 8000 đã được sử dụng**
+2. **Port 8123 đã được sử dụng**
    ```bash
    # Thay đổi port trong docker-compose.yml
    ports:
-     - "8001:8000"
+     - "8124:8123"
    ```
 
 3. **Telegram Bot không hoạt động**
@@ -357,7 +357,7 @@ QUEUE_TIMEOUT = 300
 ### Health Checks
 ```bash
 # Service health
-curl http://localhost:8000/
+curl http://localhost:8123/
 
 # Container health
 docker inspect stt-nova2-service | grep Health -A 10

@@ -66,7 +66,7 @@ $DOCKER_COMPOSE ps
 
 echo ""
 echo "✅ Deployment Successful!"
-echo "🌐 API Documentation: http://localhost:8000/docs"
-echo "🖥️  Live Dashboard: http://localhost:8000/"
+echo "🌐 API Documentation: http://localhost:8123/docs"
+echo "🖥️  Live Dashboard: http://localhost:8123/"
 echo "📜 Tailing logs... (Press Ctrl+C to stop viewing logs)"
 $DOCKER_COMPOSE logs -f stt-nova2
