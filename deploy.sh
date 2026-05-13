@@ -9,7 +9,8 @@ echo "🚀 Starting Production Deployment for STT-Nova2..."
 
 # 1. Pull latest code (Force update from main)
 echo "📥 Updating source code from Git..."
-git pull origin main
+# We use || true to allow deployment even if git pull fails due to local changes (e.g. port configuration)
+git pull origin main || echo "⚠️  Warning: git pull failed (possibly due to local changes). Continuing with current files..."
 
 # 2. Setup external dependencies (Models & Libs)
 echo "📦 Configuring AI models and libraries..."
