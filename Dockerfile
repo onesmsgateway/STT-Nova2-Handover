@@ -9,6 +9,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     DEBIAN_FRONTEND=noninteractive
 
+# Force IPv4 for apt to prevent hanging on IPv6
+RUN echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4
+
 # Install system dependencies
 # ffmpeg: required for audio processing
 # git: required for pip installing from git
